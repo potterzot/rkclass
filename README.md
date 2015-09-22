@@ -17,8 +17,8 @@ This package needs substantial work to be as fully functioning as `ivreg2` in St
 
 * If you don't know something, please let me know by [opening an issue](https://github.com/potterzot/rkclass/issues/new) or sending me an email. This will help make me aware of problems, things that need more explanation, etc...
 * Feature requests. If there is something you'd really like to see added that isn't, and you don't feel up to the task of adding it yourself, please open and issue and request a feature. I'd like to create a roadmap of features to add.
-* If you spot some errors, you can either [open an issue](https://github.com/potterzot/rkclass/issues/new) or edit the file directly and then submit a pull request.
-* If you submit a pull request with substantive code updates (which would be AWESOME!), please do your best to follow a similar coding style, document new functions, etc... I'm happy to help provide some suggestions if needed.
+* If you spot some errors, you can either [open an issue](https://github.com/potterzot/rkclass/issues/new) or edit the file directly and then submit a [pull request](https://github.com/potterzot/rkclass/compare/). There is a very short [contributing guide](https://github.com/potterzot/rkclass/CONTRIBUTING.md) on style.
+* If you [submit a pull request](https://github.com/potterzot/rkclass/compare/) with substantive code updates (which would be AWESOME!), please do your best to follow a similar [coding style](https://github.com/potterzot/rkclass/CONTRIBUTING.md), document new functions, etc... I'm happy to help provide some suggestions if needed.
 
 ###Use
 
