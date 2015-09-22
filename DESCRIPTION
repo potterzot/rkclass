@@ -1,0 +1,15 @@
+Package: rkclass
+Title: K-class regressions (Two-Stage Least Squares, LIML, Fuller)
+Version: 0.0.0.9000
+Authors@R: person("Nicholas", "Potter", email = "potter.nicholas@gmail.com", role = c("aut", "cre"))
+Description: rkclass is a package that implements instrumental variables regression methods. These
+  are commonly known as two-stage least squares, limited-information maximum likelihood, and Fuller.
+  Each of these are special examples of K-class estimators, of which standard OLS is also a member.
+  rkclass can be used to calculate instrumental variables estimates as well as test for weak
+  instruments, over-identification, etc...
+License: MIT + file LICENSE
+LazyData: true
+Depends: R (>= 3.2.0)
+Imports: Formula, Matrix, lmtest, sandwich
+Suggests: testthat, MASS, geigen, knitr
+VignetteBuilder: knitr

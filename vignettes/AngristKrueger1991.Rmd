@@ -1,0 +1,64 @@
+---
+title: "Replication of Angrist and Krueger 1991 with Corrected Standard Errors"
+author: "Nicholas Potter"
+date: "July 21, 2015"
+bibliography: kclass.bib
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Replication of Angrist and Krueger 1991}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, include = TRUE, echo = TRUE)
+library(rkclass)
+data(qob)
+```
+
+##Introduction
+Angrist and Krueger's [-@AngristKrueger1991] article on schooling has been used by a number of economists to evaluate the implications of using instrumental variables regressions with many instruments. Chiefly, Bekker [-@Bekker1994] and Hansen, Hausman, and Newey [-@HansenHausmanNewey2008], who proposed adjustments to the standard errors to correct for the extremely large number of instruments.
+
+Here we replicate the results of Angrist and Krueger, and show how to use the `rkclass` package to derive bekker standard errors as in [@Bekker1994] and corrected standard errors as in [@HansenHausmanNewey2008]. We use data available on Agrist's [data repository](http://economics.mit.edu/faculty/angrist/data1/data/angkru1991).
+
+## Angrist and Krueger
+The data in Table V of @AngristKrueger1991 are the result of regressing log weekly wage on education and a variety of other covariates, mostly dummies for year and quarter of birth for men born from 1930 and 1939. In the Stata file from Angrist's site they explictly create the dummy variables, but the same result can be obtained in `R` by setting quarter and year as factor variables. Below the coefficient for education is 0.071, with standard error 0.0003.
+
+```{r}
+#ols.simple = lm(formula = LWKLYWGE ~ EDUC + as.factor(YOB), data = qob)
+#summary(ols.simple)
+```
+
+Several intermediate OLS regressions culminate with the following:
+
+```{r}
+#ols.full = lm(formula = LWKLYWGE ~ EDUC + RACE + MARRIED + SMSA + NEWENG + MIDATL + ENOCENT + WNOCENT + SOATL + ESOCENT + WSOCENT + MT + as.factor(YOB) + AGE + AGESQ, data = qob)
+#summary(ols.full)
+```
+
+Comparing these resuls with column 7 from Table V shows coefficients and standard errors that match exactly.
+
+Of course, the OLS regressions are only the setup for the next stage, where instrumental variables regressions are used. Here Angrist and Krueger use a set of forty instruments created from the interaction of 4 quarters and 10 years. We use the `ivreg` command from the `AER` package to replicate the next section.
+
+To start with, the simple IV regression (results in column 2) are reproduced by the following. Note that the syntax here requires including EDUC as a covariate in both stages, so it appears twice. In Stata this is automatically done, so you won't see EDUC twice if you're following the code from Angrist's page:
+
+```{r}
+#tsls.simple = AER::ivreg(formula = LWKLYWGE ~ EDUC + as.factor(YOB) | . - EDUC + interaction(YOB, QOB), data = qob)
+#summary(tsls.simple)
+```
+
+The full two-stage least squares regression, results of which are shown in column 8 of Angrist and Krueger, can be calculated by:
+
+```{r}
+#tsls.full = AER::ivreg(formula = LWKLYWGE ~ EDUC + as.factor(YOB) + RACE + MARRIED + SMSA + NEWENG + MIDATL + ENOCENT + WNOCENT + SOATL + ESOCENT + WSOCENT + MT + AGE + AGESQ | . - EDUC + interaction(YOB, QOB), data = qob)
+#summary(tsls.full)
+```
+
+The takeaway from this is that education has a positive and significant effect on earnings later in life.
+
+##Bekker
+In Bekker's article
+
+##Hansen, Hausman, and Newey
+Hansen, Hausman, and Newey [-@HansenHausmanNewey2008] generalize Bekker's standard error calculations to apply to a variety of IV methods, including two-stage least squares, limited information maximum likelihood, fuller, and other k-class regressors.
+

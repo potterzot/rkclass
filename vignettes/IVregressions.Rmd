@@ -1,0 +1,75 @@
+---
+title: "Instrumental Variables Regressions"
+author: "Nicholas Potter"
+date: "July 23, 2015"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Instrumental Variables Regressions}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, include = TRUE, echo = TRUE)
+```
+
+## Introduction
+
+Instrumental Variables (IV) regressions can be thought of as a class of [Generalized Method of Moments](https://en.wikipedia.org/wiki/Generalized_method_of_moments) (GMM). Specific methods in this class include: two-stage least squares (TSLS), limited information maximum likelihood (LIML), and Fuller regressions. All of these are specific instances of what are called "K-class" regressors, due to the fact that they can be shown to be otherwise identical except for the choice of a parameter k.
+
+IV regressions have been used extensively in causal econometric anaysis, and is especially present in many papers by some combination of Angrist, Pischke, Kruegar, and Card. Angrist and Pischke have two accessible texts, [Mostly Harmless Econometrics](http://www.mostlyharmlesseconometrics.com/) and [Mastering Metrics](http://masteringmetrics.com/).
+
+If our model is $Y = X\beta + \mu$, the basic idea of IV regression is to address the problems that arise when $X$ is correlated with the error term ($E[X,\mu]\ne 0$), which makes causal inference difficult. This can happen for any of several reasons:
+
+1. There are omitted variables that are correlated with both X and Y (**Omitted Variable Bias** (OVB)).
+2. Measurement of $X$ contains non-random errors (**Measurement Bias**).
+3. $X$ and $Y$ are determined simultaneously.
+
+An excellent example of OVB can be found in Angrist and Krueger [-@AngristKrueger1991] (See the `AngristKrueger1991` vignette in this `R` package for a replication). They model income with education as the causal variable ($X$), and several other exogenous variables. However, there are several other factors that may affect both income and education, such as social status and parent education. As a result the model suffers from omitted variable bias. To fix that, Angrist and Krueger use quarter and year of birth as a set of instruments for education. The reason they work is that there is no reason quarter of birth should affect income, but it does affect education because when you are born determines what whether you start school at age 4 or 5.
+
+Another example is the effects of smoking on health. Here the problem is similar. While smoking affects health, there are likely other variables that affect both health and smoking. One can try to address that by using tobacco tax rates as an instrument, since the tax rates themselves likely don't affect health, but they probably do affect smoking, which affects health.
+
+### Terminology
+If you are trying to learn about IV regression from various sources, you'll come across a wide range of confusing terminology. We'll reference the two following example equations:
+$$
+\begin{align}
+Y_1 &= Y_2 + X_1 + X_2 + \mu \tag{1}\\
+Y_2 &= Z_1 + Z_2 + \epsilon. \tag{2}\\
+\end{align}
+$$
+
+* **dependent** variable: The variable on the LHS of the equation. ($Y_1$)
+* **independent** variables: All the variables on the RHS of the equation. ($Y_2, X_1, X_2, Z_1, Z_2$)
+* **endogenous** regressors: Variables with $E[X,\mu]\ne 0$. Also called **instrumented** variables. ($Y2$, also often written as $X$) 
+* **exogenous** regressors: Variables not instrumented. These are also often called **controls**, since they are usually not the variable(s) of interest. ($X_1, X_2$)
+* *excluded* instruments: Variables for which $E[Z,\mu]=0$ holds. What we usually think of as "instruments." ($Z_1, Z_2$)
+* *included* instruments: equivalent by definition to the **exogenous** regressors. ($X_1, X_2$)
+
+Part of the key to understanding the terminology is to realize that often in teaching and examples, the included instruments / exogenous regressors are left off of $(2)$. In practice however, and when programming, these variables are included in both equations, though they are termed different things.
+
+It may help to think of **included** instruments as instruments that are included in $(1)$, and **excluded** instruments as instruments that are excluded from $(1)$.
+
+One of the clearest descriptions of IV estimation I have seen is by [Takashi Yamono](http://www3.grips.ac.jp/~yamanota/Lecture%20Note%208%20to%2010%202SLS%20&%20others.pdf). 
+
+## (Semi) Formal Model
+Expanding on (1) and (2) above, we consider the model 
+
+$$Y = X\beta + \mu. \tag{3}$$
+
+Where $X$ is an $n \times K$ matrix of regressors $x_1, ..., x_K$ and $\mu \sim N(0,\sigma^2)$. Some of the regressors are endogenous, in that $E[x,\mu]\ne 0$. Following Baum, Schaffer, and Stillman [-@BaumSchifferStillman2007], we expand $(3)$ to specify endogenous and exogenous $X$:
+
+$$Y = [X_1 X_2][\beta'_1 \beta'_2]' + \mu. \tag{4}$$
+
+Here $X_1$ is the matrix of endogenous (instrumented) regressors, and $X_2$ is the matrix of exogenous (non-instrumented) regressors. Since $X$ has size $n \times K$, $X_1$ has size $n \times K_1$ and $X_2$ has size $n \times K_2$, where $K = K_1 + K_2$.
+
+The set of instrumental variables as shown in $(2)$ is denoted as $Z$, where $Z = [Z_1 Z_2]$. $Z_1$ are the excluded instruments and $Z_2 \equiv X_2$. $Z$ is of size $n \times L$, with $L_1$ the number of columns in $Z_1$ and $L_2$ the number of columns in $Z_2$, with $L = L_1 + L_2$ and $L_2 \equiv K_2$.
+
+
+
+
+
+
+
+
+
+

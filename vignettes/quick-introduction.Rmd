@@ -1,0 +1,55 @@
+---
+title: "Quick Introduction"
+author: "Nicholas Potter"
+date: "July 29, 2015"
+bibliography: kclass.bib
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quick Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, include = TRUE, echo = TRUE)
+```
+
+## Overview
+
+This is a simple example of how to use the `rkclass` package to get you up and running quickly. We will do a simplified regression of the type found in Angrist and Krueger [-@AngristKrueger1991].
+
+`rkclass` comes with a dataset from that paper that can be loaded with:
+
+```{r}
+#load the package
+library(rkclass)
+
+qob = data(qob)
+```
+
+A simple variant of a regression from Angrist and Krueger is:
+
+```{r}
+#formula = LWKLYWGE ~ EDUC + AGE + AGESQ | . - EDUC + as.factor(YOB)
+#m.kclass = kclass(formula, data=qob)
+#summary(m.kclass)
+```
+
+This output should match (and is tested against it on build) output from `AER::ivreg`
+
+```{r}
+#m.aer = AER::ivreg(formula, data=qob)
+#summary(m.aer)
+```
+
+###Additional Options
+`rkclass` makes several things easy that are more difficult or not supported in `AER`. Being a general k-class estimator, you can run a number of models other than the default LIML model. These are specified by the parameter `model.type`, for which you can specify "LIML", "OLS", "FULLER", "TSLS", or "KCLASS". "FULLER" requires an additional `alpha` parameter.
+
+```{r}
+#m.liml = kclass(formula, data=qob, model.type="LIML")
+#summary(m.liml)
+#m.fuller = kclass(formula, data=qob, model.type="FULLER", alpha=1)
+#summar(m.fuller)
+```
+
+The `k` parameter can also be specified directly, though that's not generally recommended, and is overridden if `model.type` is set to anything other than "KCLASS".
