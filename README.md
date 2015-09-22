@@ -10,9 +10,23 @@ For now `rkclass` is not on CRAN. You can instead install it via github:
 
     library(devtools)
     devtools::install_github("potterzot/rkclass")
-    
+
+###Contributing
+
+This package needs substantial work to be as fully functioning as `ivreg2` in Stata is, and all contributions are warmly welcome! There are a few great ways that you could contribute:
+
+* If you don't know something, please let me know by [opening an issue](https://github.com/potterzot/rkclass/issues/new) or sending me an email. This will help make me aware of problems, things that need more explanation, etc...
+* Feature requests. If there is something you'd really like to see added that isn't, and you don't feel up to the task of adding it yourself, please open and issue and request a feature. I'd like to create a roadmap of features to add.
+* If you spot some errors, you can either [open an issue](https://github.com/potterzot/rkclass/issues/new) or edit the file directly and then submit a pull request.
+* If you submit a pull request with substantive code updates (which would be AWESOME!), please do your best to follow a similar coding style, document new functions, etc... I'm happy to help provide some suggestions if needed.
+
 ###Use
+
+*Be warned that `rkclass` is still under development. The results for standard regressions should be correct (and are tested against `AER::ivreg`, but other methods may not be available and function calls may change.*
+
 If instrumental variables regressions (2SLS, LIML, FULLER) include many instruments, the standard errors can be incorrect. Hansen, Hausman, and Newey [1] generalized Bekker's [2] standard error adjustments for use in multiple situations other than just LIML.
+
+Use syntax follows the syntax from `AER::ivreg`, which looks like `kclass(formula, data, ...)`. The returned result is a model object that has many (hopefully all) of the associated methods, including `summary`, `print`, etc... For more usage examples see the getting started vignette by typing `vignette('kclass-intro'). For a more in depth look, see `vignette('AngristKrueger1991'), which provides a replication of some of the results of that paper.
 
 ###Acknowledgements
 Many resources were helpful in the development of `rkclass`. Of special note are:
@@ -23,7 +37,7 @@ Many resources were helpful in the development of `rkclass`. Of special note are
 
 * [Applied Economics with R](https://cran.r-project.org/web/packages/AER/index.html), a package developed in support of the 2008 book of the same name by Christian Kleiber and Achim Zeileis.
 
-* Stata's] [ivreg2](https://ideas.repec.org/c/boc/bocode/s425401.html) package, written by Christopher Baum, Mark Schaffer, and Steve Stillman [1], which provides helpful documentation and a whole suite of methods to test against.  
+* Stata's [ivreg2](https://ideas.repec.org/c/boc/bocode/s425401.html) package, written by Christopher Baum, Mark Schaffer, and Steve Stillman [1], which provides helpful documentation and a whole suite of methods to test against.  
 
 Much of the theory behind the code is from the following sources:
 
