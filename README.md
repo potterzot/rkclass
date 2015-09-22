@@ -50,9 +50,9 @@ Much of the theory behind the code is from the following sources:
 ###References
 [1] Baum, C.F., Schaffer, M.E., Stillman, S. (2007), "ivreg2: Stata module for extended instrumental variables/2SLS, GMM and AC/HAC, LIML and k-class regression," http://ideas.repec.org/c/boc/bocode/s425401.html.
 
-[1] Hansen, C., J. A. Hausman, and W. Newey (2008), "Estimation with Many Instrumental Variables,"" Journal of Business and Economic Statistics, 26:4. DOI: 10.1198/073500108000000024.
+[2] Hansen, C., J. A. Hausman, and W. Newey (2008), "Estimation with Many Instrumental Variables,"" Journal of Business and Economic Statistics, 26:4. DOI: 10.1198/073500108000000024.
 
-[2] Bekker, P. A. (1994), "Alternative Approximations to the Distributions of Instrumental Variables Estimators," Econometrica, 63, 657–681.
+[3] Bekker, P. A. (1994), "Alternative Approximations to the Distributions of Instrumental Variables Estimators," Econometrica, 63, 657–681.
 
-[3] Angrist, J., and Krueger, A. (1991), “Does Compulsory School Attendance Affect Schooling and Earnings,” Quarterly Journal of Economics, 106, 979–1014.
+[4] Angrist, J., and Krueger, A. (1991), “Does Compulsory School Attendance Affect Schooling and Earnings,” Quarterly Journal of Economics, 106, 979–1014.
 
