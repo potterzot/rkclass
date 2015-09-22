@@ -26,7 +26,7 @@ This package needs substantial work to be as fully functioning as `ivreg2` in St
 
 If instrumental variables regressions (2SLS, LIML, FULLER) include many instruments, the standard errors can be incorrect. Hansen, Hausman, and Newey [1] generalized Bekker's [2] standard error adjustments for use in multiple situations other than just LIML.
 
-Use syntax follows the syntax from `AER::ivreg`, which looks like `kclass(formula, data, ...)`. The returned result is a model object that has many (hopefully all) of the associated methods, including `summary`, `print`, etc... For more usage examples see the getting started vignette by typing `vignette('kclass-intro'). For a more in depth look, see `vignette('AngristKrueger1991'), which provides a replication of some of the results of that paper.
+Use syntax follows the syntax from `AER::ivreg`, which looks like `kclass(formula, data, ...)`. The returned result is a model object that has many (hopefully all) of the associated methods, including `summary`, `print`, etc... For more usage examples see the getting started vignette by typing `vignette('kclass-intro')`. For a more in depth look, see `vignette('AngristKrueger1991')`, which provides a replication of some of the results of that paper.
 
 ###Acknowledgements
 Many resources were helpful in the development of `rkclass`. Of special note are:
