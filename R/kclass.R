@@ -231,7 +231,7 @@ kclass.fit <- function(x, y,
   }
 
   #Calculate model matrix from which all others are derived
-  RA = qr.R(QA) [order(QA$pivot), order(QA$pivot)]
+  RA = qr.R(QA) [, order(QA$pivot)]
 
   #Define 'R' matrices
   #Following Belsley 1974.
