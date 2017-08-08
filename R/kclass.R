@@ -217,10 +217,7 @@ kclass.fit <- function(x, y,
   QA = qr(A * w) #multiply by the weights before doing QR
 
   if(!all(QA$pivot==1:ncol(A))) {
-    print("Rank issue...")
-    #print(QA$pivot)
-    #cat("Rank:\n")
-    #print(QA$rank)
+    warning("Rank issue.")
     max_piv <- which.max(QA$pivot)
     out_piv <- QA$pivot[(max_piv+1):length(QA$pivot)]
     n_inc <- 1:n.inc
